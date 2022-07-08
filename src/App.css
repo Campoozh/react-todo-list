@@ -1,0 +1,90 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap');
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #2E424D;
+  font-family: 'Poppins', sans-serif;
+}
+.todolist {
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.todolist ul{
+  list-style-type: none;
+  background-color: #5B8291;
+  padding: 20px;
+  width: 100%;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+  overflow: hidden;
+}
+
+.todolist li{
+  background-color: #98DAD9;
+  padding: 20px;
+  color: #EAEBED;
+  display: flex;
+  justify-content: space-around;
+  border-radius: 5px;
+  margin: 1em 0;
+  height: 25%;
+}
+.todolist li h3{
+  font-size: 15px;
+  word-break:break-all;
+  text-indent: 20px;
+  width: 85%;
+  background-color: #EAEBED;
+  color: #5B8291;
+  border-radius: 10px;
+  padding: 15px;
+}
+.todolist .buttons-div {
+  width: 15%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+.todolist .buttons-div button{
+  background-color: #EAEBED;
+  border: 0;
+  height: 40px;
+  width: 40px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 20px;
+  color: #5B8291;
+}
+.todolist form{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.todolist input[type="text"]{
+  width: 100%;
+  padding: 15px;
+  border-radius: 5px;
+  border: 0;
+}
+.todolist input[type="submit"]{
+  padding: 10px;
+  border: 0;
+  border-radius: 5px;
+  margin-top: 1em;
+  width: 60%;
+  cursor: pointer;
+  text-transform: uppercase;
+}
+.todolist input[type="submit"]:hover{
+  background-color: #5B8291;
+  color: #EAEBED;
+  transition: .4s ease;
+}
