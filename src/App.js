@@ -1,61 +1,62 @@
-import React, { useEffect, useRef, useState } from 'react';
-import './App.css';
+import React, { Component, createRef } from 'react'
 import "bootstrap-icons/font/bootstrap-icons.css";
-const App = () => {
+import './App.css'
 
-    // Using useState to create de list of To Do items
-    const [items, setItems] = useState([])
-  
-    // Getting all of the items saved in the localStorage
-    useEffect(() => {
-      let savedItems = localStorage.getItem('items')
-      // Getting the items if they exist
-      setItems(savedItems ? JSON.parse(savedItems) : [])
-    }, [])
+class App extends Component {
+    constructor(props) {
+      super(props)
+      this.todoText = createRef()
 
-    const todoText = useRef()
+      const SAVED_ITEMS = localStorage.getItem('items')
+      this.state = {
+          items: SAVED_ITEMS ? JSON.parse(SAVED_ITEMS) : []
+      }
+    }
 
-    // Adding item sent by the from to the To Do list and saving it to localStorage
-    let addItem = (event) => {
+    addItem = (event) => {
       event.preventDefault()
-      const newList = [...items, todoText.current.value]
-      todoText.current.value = ""
-      setItems(newList)
-      localStorage.setItem('items', JSON.stringify(newList))
+      const NEW_LIST = [...this.state.items, this.todoText.current.value]
+      this.todoText.current.value = ""
+      localStorage.setItem('items', JSON.stringify(NEW_LIST))
+      this.setState({
+          items: NEW_LIST
+      })
     }
 
-    let liItem = useRef({})
-
-    // Removing an item use its ref
-    let removeItem = () => {
-      let newList = items.filter(item => item !== liItem.current['item'].innerText)
-      setItems(newList)
-      localStorage.setItem('items', JSON.stringify(newList))
+    removeItem = (id) => {
+      let h3 = document.querySelector(`#${id}`)
+      const ID_NUMBER = h3.id.split('-')[1]
+      const CURRENT_ITEMS = this.state.items
+      CURRENT_ITEMS.splice(ID_NUMBER, 1)
+      this.setState({
+        items: CURRENT_ITEMS
+      })
+      localStorage.setItem('items', JSON.stringify(CURRENT_ITEMS))
     }
 
+  render() {
     return (
-      <div className='todolist'>      
+        <div className='todolist'>      
         <ul>
           {/* Map all items inside the To Do to create their <li> */}
-          {items.map(item => (
-            <li key={items.indexOf(item)}>
-              <h3 ref={item => liItem.current['item'] = item}>{item}</h3>
+          {this.state.items.map((item, id) => (
+            <li key={id}>
+              <h3 id={`item-${id}`}>{item}</h3>
               <div className='buttons-div'>
-                <button onClick={removeItem}><i className='bi bi-trash3-fill'></i></button>
+                <button onClick={() => {this.removeItem(`item-${id}`)}}><i className='bi bi-trash3-fill'></i></button>
               </div>
             </li>
           ))}
         </ul>
 
-        <form action="" onSubmit={addItem}>
+        <form action="" onSubmit={this.addItem}>
           {/* Using ref to get the input value */}
-          <input type="text" ref={todoText} placeholder="Add item to the list..." />
+          <input type="text" ref={this.todoText} placeholder="Add item to the list..." />
           <input type="submit" value={"Add item"}/>
         </form>
       </div>
-
-    );
+    )
   }
-  
+}
 
-export default App;
+export default App
