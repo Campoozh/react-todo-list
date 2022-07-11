@@ -5,6 +5,5 @@
         <ul>
                 <li> Add an item (with the time it was added);</li>
                 <li> Remove an item;</li>
-                <li> Edit an item (with the time it was edited);</li>
         </ul>
 </html>
